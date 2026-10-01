@@ -11,6 +11,9 @@ int main (){
 		for (int i = 0; i < n; i++){
 			cin >> a[i];
 		}
+		
+		
+		
 		long long max1 = -1, max2 = -1;
 		long long min1 = LLONG_MAX, min2 = LLONG_MAX;
 		for (int i = 0; i < n; i++){
@@ -29,7 +32,16 @@ int main (){
 				min2 = a[i];
 			}
 		}
-		cout << max1 - min1 + max2 - min2 << endl;
+		
+		if (n == 1){
+			cout << "0" << endl;
+		}
+		else if (n < 4){
+			cout << max1 - min1 << endl;
+		}
+		else {
+		    cout << max1 - min1 + max2 - min2 << endl;	
+		}
 	}
 	
 	return 0;
