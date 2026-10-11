@@ -10,7 +10,7 @@ void nhap(vector<int> &a, int n){
 }
 
 bool bi_search(vector<int> &a, int n, int x){
-	int l = 0, r = 2*n - 2;
+	int l = 0, r = n - 1;
 	while (l <= r){
 		int m = l + (r - l) / 2;
 		int pos = 2*m;
@@ -29,6 +29,9 @@ bool bi_search(vector<int> &a, int n, int x){
 }
 
 int main(){
+	ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+	
 	int n; cin >> n;
 	vector<int> a(2*n);
 	nhap(a, n);

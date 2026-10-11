@@ -9,20 +9,21 @@ void nhap(vector<int> &a, int n){
 
 int bi_search(vector<int> &a, int n){
 	int l = 0, r = n - 1;
-	int res = -1;
 	if (n == 3) return a[1];
 	while (l < r){
 		int m = (r + l) / 2;
-		res = max(res, a[m]);
-		if ((m < n && m != 0) && res >= a[m+1] && res >= a[m-1]) return res;
-		if (m != 0 && res < a[m-1]){
+		if ((m < n && m != 0) && a[m] >= a[m+1] && a[m] >= a[m-1]) return a[m];
+		if (m != 0 && a[m] < a[m-1]){
 			r = m - 1;
 		}
-		else if (m < n && res < a[m+1]){
+		else if (m < n && a[m] < a[m+1]){
 			l = m + 1;
 		}
+		else {
+			return a[m];
+		}
 	}
-	return res;
+	return a[l];
 }
 
 int main(){
