@@ -1,0 +1,136 @@
+
+#include <iomanip>
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct NGAY {
+    int Ngay, Thang, Nam;
+};
+struct SINHVIEN {
+    string MASV;
+    string HoTen;
+    NGAY NgaySinh;
+    char GioiTinh;
+    float DiemToan, DiemLy, DiemHoa, DTB;
+};
+struct NODE{
+    SINHVIEN key;
+    NODE* pNext;
+};
+struct LIST{
+    NODE*pHead, *pTail;
+};
+
+void NhapNgay(NGAY &);
+void XuatNgay(NGAY);
+void NhapSinhVien(SINHVIEN &);
+void XuatSinhVien(SINHVIEN );
+NODE* CreateNode(SINHVIEN );
+void CreateEmptyList(LIST &);
+void AddTail(LIST&, NODE* );
+void XuatDS(LIST L);
+void NhapDS(LIST &, int );
+void Tim_SinhVien_TheoNamSinh(LIST, int);
+
+int main() {
+    LIST L;
+    int n, namsinh;
+
+    cin >> namsinh;
+    cin >> n ;
+    NhapDS(L, n);
+
+    Tim_SinhVien_TheoNamSinh(L, namsinh);
+
+    return 0;
+}
+void NhapNgay(NGAY &a){
+    cin >> a.Ngay >> a.Thang >> a.Nam;
+}
+void XuatNgay(NGAY a){
+    cout << a.Ngay << "/" << a.Thang << "/" << a.Nam;
+}
+void NhapSinhVien(SINHVIEN &a){
+    cin >> ws;
+    getline(cin, a.MASV);
+    getline(cin, a.HoTen);
+    NhapNgay(a.NgaySinh);
+    cin >> a.GioiTinh;
+    cin >> a.DiemToan >> a.DiemLy >> a.DiemHoa;
+    a.DTB = (a.DiemToan + a.DiemLy + a.DiemHoa) / 3;
+}
+void XuatSinhVien(SINHVIEN a){
+    cout << a.MASV;         cout << "\t";
+    cout << a.HoTen;        cout << "\t";
+    XuatNgay(a.NgaySinh);   cout << "\t";
+    cout << a.GioiTinh;     cout << "\t";
+    cout << a.DiemToan;     cout << "\t";
+    cout << a.DiemLy;       cout << "\t";
+    cout << a.DiemHoa;      cout << "\t";
+    cout << setprecision(3);
+    cout << a.DTB;
+}
+
+NODE* CreateNode(SINHVIEN x){
+	NODE *p = new NODE;
+	p->key = x;
+	p->pNext = nullptr;
+	return p;
+}
+
+void CreateEmptyList(LIST &L){
+	L.pHead = nullptr;
+	L.pTail = nullptr;
+}
+
+void AddTail(LIST& l, NODE* p){
+	if (l.pHead == nullptr){
+		l.pHead = p;
+		l.pTail = l.pHead;
+	}
+	else{
+		l.pTail->pNext = p;
+		l.pTail = p;
+	}
+}
+
+void XuatDS(LIST L){
+	NODE *p = L.pHead;
+	if (L.pHead == nullptr){
+		cout << "Empty List.";
+		return;
+	}
+	while (p != nullptr){
+		XuatSinhVien(p->key);
+		p = p->pNext;
+		cout << endl;
+	}
+}
+
+void NhapDS(LIST &L, int n){
+	CreateEmptyList(L);
+	for (int i = 0; i < n; i++){
+		cout << endl;
+		SINHVIEN x;
+		NhapSinhVien(x);
+		NODE *p = CreateNode(x);
+		AddTail(L, p);
+	}
+}
+
+void Tim_SinhVien_TheoNamSinh(LIST L, int namsinh){
+	NODE *p = L.pHead;
+	int cnt = 0;
+	while (p != nullptr){
+		if (p->key.NgaySinh.Nam == namsinh){
+			cnt++;
+			XuatSinhVien(p->key);
+			cout << endl;
+		}
+		p = p->pNext;
+	}
+	if (cnt == 0) cout << "Not found in list.";
+}
+
+
